@@ -1,7 +1,5 @@
 ﻿namespace EmployeeManager.Web.Domain
 {
-    using EnsureThat;
-
     public enum Department
     {
         Executive,
@@ -11,40 +9,12 @@
 
     public class Employee
     {
-        public Employee(string firstName, string lastName, Department department)
-        {
-            Ensure.That(() => firstName).IsNotNullOrWhiteSpace();
-            Ensure.That(() => lastName).IsNotNullOrWhiteSpace();
+        public int Id { get; set; }
 
-            FirstName = firstName;
-            LastName = lastName;
-            Department = department;
-        }
+        public string FirstName { get; set; }
 
-        private Employee()
-        {
-        }
+        public string LastName { get; set; }
 
-        public int Id { get; private set; }
-
-        public string FirstName { get; private set; }
-
-        public string LastName { get; private set; }
-
-        public Department Department { get; private set; }
-
-        public void ChangeEmployeeDepartment(Department newDepartment)
-        {
-            Department = newDepartment;
-        }
-
-        public void UpdateEmployeeName(string firstName, string lastName)
-        {
-            Ensure.That(() => firstName).IsNotNullOrWhiteSpace();
-            Ensure.That(() => lastName).IsNotNullOrWhiteSpace();
-
-            FirstName = firstName;
-            LastName = lastName;
-        }
+        public Department Department { get; set; }
     }
 }
