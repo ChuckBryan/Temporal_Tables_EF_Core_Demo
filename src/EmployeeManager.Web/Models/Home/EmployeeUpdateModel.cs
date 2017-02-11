@@ -1,16 +1,19 @@
-﻿namespace EmployeeManager.Web.Domain
+﻿namespace EmployeeManager.Web.Models.Home
 {
     using System.ComponentModel.DataAnnotations;
+    using Microsoft.AspNetCore.Mvc;
 
-    public class Employee
+    public class EmployeeUpdateModel
     {
-        public int Id { get; set; }
+        [HiddenInput]
+        public int EmployeeId { get; set; }
 
-        [Display(Name="First Name")]
+        [Display(Name = "First Name")]
         [Required]
         [StringLength(25)]
         public string FirstName { get; set; }
 
+        [Display(Name = "Last Name")]
         [Required]
         [StringLength(25)]
         public string LastName { get; set; }

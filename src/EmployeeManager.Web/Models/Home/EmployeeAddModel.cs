@@ -1,16 +1,15 @@
-﻿namespace EmployeeManager.Web.Domain
+﻿namespace EmployeeManager.Web.Models.Home
 {
     using System.ComponentModel.DataAnnotations;
 
-    public class Employee
+    public class EmployeeAddModel
     {
-        public int Id { get; set; }
-
-        [Display(Name="First Name")]
+        [Display(Name = "First Name")]
         [Required]
         [StringLength(25)]
         public string FirstName { get; set; }
 
+        [Display(Name = "Last Name")]
         [Required]
         [StringLength(25)]
         public string LastName { get; set; }

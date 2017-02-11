@@ -10,6 +10,9 @@ using Microsoft.Extensions.Logging;
 
 namespace EmployeeManager.Web
 {
+    using Domain;
+    using Microsoft.EntityFrameworkCore;
+
     public class Startup
     {
         public Startup(IHostingEnvironment env)
@@ -29,6 +32,8 @@ namespace EmployeeManager.Web
         {
             // Add framework services.
             services.AddMvc();
+            // Note that this is scoped lifetime.
+            services.AddDbContext<EmployeeDataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("EmployeeDemo")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
