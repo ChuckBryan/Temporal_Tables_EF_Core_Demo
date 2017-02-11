@@ -4,11 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EmployeeManager.Web.Controllers
 {
-    using System.IdentityModel.Claims;
     using Domain;
     using Microsoft.EntityFrameworkCore;
     using Models.Home;
-    using Claim = System.Security.Claims.Claim;
 
     public class HomeController : Controller
     {
@@ -98,6 +96,16 @@ namespace EmployeeManager.Web.Controllers
             await _dbContext.SaveChangesAsync();
             
             return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> DeleteEmployee(int id)
+        {
+            var employeeToDelete = new Employee {Id = id};
+            _dbContext.Entry(employeeToDelete).State = EntityState.Deleted;
+
+            await _dbContext.SaveChangesAsync();
+
+            return RedirectToAction("Index");
         }
 
         public IActionResult Error()

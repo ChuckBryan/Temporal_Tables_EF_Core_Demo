@@ -8,8 +8,8 @@ using EmployeeManager.Web.Domain;
 namespace EmployeeManager.Web.Migrations
 {
     [DbContext(typeof(EmployeeDataContext))]
-    [Migration("20170211165616_MakeTemporal")]
-    partial class MakeTemporal
+    [Migration("20170211215711_AdjustDates")]
+    partial class AdjustDates
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
