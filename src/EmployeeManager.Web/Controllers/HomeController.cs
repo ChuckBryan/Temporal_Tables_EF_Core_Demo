@@ -112,5 +112,41 @@ namespace EmployeeManager.Web.Controllers
         {
             return View();
         }
+
+        public async Task<IActionResult> TwoMinutesAgo()
+        {
+            var model = await _dbContext.Employees.AsNoTracking().Select(e => new EmployeeIndexModel
+            {
+                EmployeeId = e.Id,
+                Name =  e.FirstName + " " + e.LastName,
+                Department = e.Department
+            }).ToListAsync();
+
+            return View(model);
+        }
+
+        public async Task<IActionResult> ThirtyDaysAgo()
+        {
+            var model = await _dbContext.Employees.AsNoTracking().Select(e => new EmployeeIndexModel
+            {
+                EmployeeId = e.Id,
+                Name =  e.FirstName + " " + e.LastName,
+                Department = e.Department
+            }).ToListAsync();
+
+            return View(model);
+        }
+
+        public async Task<IActionResult> FortyDaysAgo()
+        {
+                        var model = await _dbContext.Employees.AsNoTracking().Select(e => new EmployeeIndexModel
+            {
+                EmployeeId = e.Id,
+                Name =  e.FirstName + " " + e.LastName,
+                Department = e.Department
+            }).ToListAsync();
+
+            return View(model);
+        }
     }
 }

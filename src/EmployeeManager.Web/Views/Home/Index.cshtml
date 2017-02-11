@@ -4,13 +4,16 @@
     ViewData["Title"] = "Home Page";
 }
 
-
+<h1>Employees</h1>
 <table class="table table-condensed table-bordered table-striped">
     <caption>
-        <div class="pull-left"><h1>Employees</h1></div>
-        <div class="pull-right">
-            <a asp-action="AddEmployee" class="btn btn-primary">Add Employee</a>
-        </div>
+        <ul class="nav nav-tabs">
+            <li role="presentation" class="active"><a asp-action="Index">Current</a></li>
+            <li role="presentation"><a asp-action="TwoMinutesAgo">2 Minutes Ago</a></li>
+            <li role="presentation"><a asp-action="ThirtyDaysAgo">Thirty Days Ago</a></li>
+            <li role="presentation"><a asp-action="FortyDaysAgo">Forty Days Ago</a></li>
+        </ul>
+
     </caption>
      <thead>
    

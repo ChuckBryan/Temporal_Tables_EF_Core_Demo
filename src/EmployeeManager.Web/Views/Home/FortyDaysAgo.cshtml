@@ -1,0 +1,44 @@
+﻿@model IEnumerable<EmployeeManager.Web.Models.Home.EmployeeIndexModel>
+@{
+    ViewData["Title"] = "Forty Days Ago";
+}
+
+<h1>Employees (40 Days Ago)</h1>
+<table class="table table-condensed table-bordered table-striped">
+    <caption>
+        <ul class="nav nav-tabs">
+            <li role="presentation" ><a asp-action="Index">Current</a></li>
+            <li role="presentation"><a asp-action="TwoMinutesAgo">2 Minutes Ago</a></li>
+            <li role="presentation"><a asp-action="ThirtyDaysAgo">Thirty Days Ago</a></li>
+            <li role="presentation" class="active"><a asp-action="FortyDaysAgo">Forty Days Ago</a></li>
+        </ul>
+    </caption>
+    <thead>
+
+        <tr>
+            <th class="text-center">Employee Id</th>
+            <th>Employee</th>
+            <th class="text-center">Department</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (!Model.Any())
+        {
+            <tr>
+                <td colspan="3" class="bg-info"><em>There are no Employees.</em></td>
+            </tr>
+        }
+        else
+        {
+            foreach (var employee in @Model)
+            {
+                <tr>
+                    <td class="text-center">@employee.EmployeeIdDisplay</td>
+                    <td>@employee.Name</td>
+                    <td class="text-center">@employee.Department</td>
+                </tr>
+            }
+        }
+
+    </tbody>
+</table>
