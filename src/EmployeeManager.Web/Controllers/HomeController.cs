@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EmployeeManager.Web.Controllers
 {
+    using System;
     using Domain;
     using Microsoft.EntityFrameworkCore;
     using Models.Home;
@@ -17,12 +18,12 @@ namespace EmployeeManager.Web.Controllers
             _dbContext = dbContext;
         }
 
-        public async Task<IActionResult>  Index()
+        public async Task<IActionResult> Index()
         {
             var model = await _dbContext.Employees.AsNoTracking().Select(e => new EmployeeIndexModel
             {
                 EmployeeId = e.Id,
-                Name =  e.FirstName + " " + e.LastName,
+                Name = e.FirstName + " " + e.LastName,
                 Department = e.Department
             }).ToListAsync();
 
@@ -57,14 +58,12 @@ namespace EmployeeManager.Web.Controllers
 
         public async Task<IActionResult> UpdateEmployee(int id)
         {
-
-            var model = await _dbContext.Employees.Where(e=>e.Id == id).Select(e => new EmployeeUpdateModel
+            var model = await _dbContext.Employees.Where(e => e.Id == id).Select(e => new EmployeeUpdateModel
             {
                 EmployeeId = e.Id,
                 FirstName = e.FirstName,
                 LastName = e.LastName,
                 Department = e.Department,
-
             }).SingleOrDefaultAsync();
 
             if (model == null) return NotFound();
@@ -73,7 +72,7 @@ namespace EmployeeManager.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult>  UpdateEmployee(EmployeeUpdateModel model)
+        public async Task<IActionResult> UpdateEmployee(EmployeeUpdateModel model)
         {
             if (!ModelState.IsValid) return View();
 
@@ -81,7 +80,7 @@ namespace EmployeeManager.Web.Controllers
             {
                 Id = model.EmployeeId,
                 FirstName = model.FirstName,
-                LastName =  model.LastName,
+                LastName = model.LastName,
                 Department = model.Department,
                 WhoDidThis = HttpContext.User.Identity.Name
             };
@@ -94,7 +93,7 @@ namespace EmployeeManager.Web.Controllers
             _dbContext.Update(employee);
 
             await _dbContext.SaveChangesAsync();
-            
+
             return RedirectToAction(nameof(Index));
         }
 
@@ -115,10 +114,14 @@ namespace EmployeeManager.Web.Controllers
 
         public async Task<IActionResult> TwoMinutesAgo()
         {
-            var model = await _dbContext.Employees.AsNoTracking().Select(e => new EmployeeIndexModel
+            var twoMinutesAgo = DateTime.Now.AddMinutes(-2);
+            string SQL = $"SELECT * FROM Employees FOR SYSTEM_TIME AS OF '{twoMinutesAgo}'";
+
+            var model = await _dbContext.Employees.FromSql(SQL)
+                .AsNoTracking().Select(e => new EmployeeIndexModel
             {
                 EmployeeId = e.Id,
-                Name =  e.FirstName + " " + e.LastName,
+                Name = e.FirstName + " " + e.LastName,
                 Department = e.Department
             }).ToListAsync();
 
@@ -127,10 +130,14 @@ namespace EmployeeManager.Web.Controllers
 
         public async Task<IActionResult> ThirtyDaysAgo()
         {
-            var model = await _dbContext.Employees.AsNoTracking().Select(e => new EmployeeIndexModel
+            var thirtyDaysAgo = DateTime.Now.AddDays(-30);
+            string SQL = $"SELECT * FROM Employees FOR SYSTEM_TIME AS OF '{thirtyDaysAgo}'";
+
+            var model = await _dbContext.Employees.FromSql(SQL).AsNoTracking()
+                .Select(e => new EmployeeIndexModel
             {
                 EmployeeId = e.Id,
-                Name =  e.FirstName + " " + e.LastName,
+                Name = e.FirstName + " " + e.LastName,
                 Department = e.Department
             }).ToListAsync();
 
@@ -139,10 +146,14 @@ namespace EmployeeManager.Web.Controllers
 
         public async Task<IActionResult> FortyDaysAgo()
         {
-                        var model = await _dbContext.Employees.AsNoTracking().Select(e => new EmployeeIndexModel
+            var fortyDaysAgo = DateTime.Now.AddDays(-40);
+            string SQL = $"SELECT * FROM Employees FOR SYSTEM_TIME AS OF '{fortyDaysAgo}'";
+
+            var model = await _dbContext.Employees.FromSql(SQL).AsNoTracking()
+                .Select(e => new EmployeeIndexModel
             {
                 EmployeeId = e.Id,
-                Name =  e.FirstName + " " + e.LastName,
+                Name = e.FirstName + " " + e.LastName,
                 Department = e.Department
             }).ToListAsync();
 

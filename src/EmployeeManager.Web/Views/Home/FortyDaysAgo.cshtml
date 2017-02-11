@@ -4,6 +4,9 @@
 }
 
 <h1>Employees (40 Days Ago)</h1>
+<code>
+    SELECT * FROM Employees <strong>FOR SYSTEM_TIME AS OF '{fortyDaysAgo}'</strong>
+</code>
 <table class="table table-condensed table-bordered table-striped">
     <caption>
         <ul class="nav nav-tabs">
