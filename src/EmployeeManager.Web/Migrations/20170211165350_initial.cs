@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace EmployeeManager.Web.Migrations
 {
-    public partial class Initial : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -17,7 +17,8 @@ namespace EmployeeManager.Web.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Department = table.Column<string>(maxLength: 25, nullable: false),
                     FirstName = table.Column<string>(maxLength: 25, nullable: false),
-                    LastName = table.Column<string>(maxLength: 25, nullable: false)
+                    LastName = table.Column<string>(maxLength: 25, nullable: false),
+                    WhoDidThis = table.Column<string>(maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {

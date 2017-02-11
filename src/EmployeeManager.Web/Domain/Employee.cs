@@ -18,5 +18,9 @@
         [Required]
         [StringLength(25)]
         public string Department { get; set; }
+
+        [Required]
+        [StringLength(50)]
+        public string WhoDidThis { get; set; }
     }
 }

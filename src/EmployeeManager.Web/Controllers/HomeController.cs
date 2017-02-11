@@ -4,9 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EmployeeManager.Web.Controllers
 {
+    using System.IdentityModel.Claims;
     using Domain;
     using Microsoft.EntityFrameworkCore;
     using Models.Home;
+    using Claim = System.Security.Claims.Claim;
 
     public class HomeController : Controller
     {
@@ -44,7 +46,8 @@ namespace EmployeeManager.Web.Controllers
             {
                 FirstName = model.FirstName,
                 LastName = model.LastName,
-                Department = model.Department
+                Department = model.Department,
+                WhoDidThis = HttpContext.User.Identity.Name
             };
 
             await _dbContext.Employees.AddAsync(employee);
@@ -62,7 +65,8 @@ namespace EmployeeManager.Web.Controllers
                 EmployeeId = e.Id,
                 FirstName = e.FirstName,
                 LastName = e.LastName,
-                Department = e.Department
+                Department = e.Department,
+
             }).SingleOrDefaultAsync();
 
             if (model == null) return NotFound();
@@ -80,7 +84,8 @@ namespace EmployeeManager.Web.Controllers
                 Id = model.EmployeeId,
                 FirstName = model.FirstName,
                 LastName =  model.LastName,
-                Department = model.Department
+                Department = model.Department,
+                WhoDidThis = HttpContext.User.Identity.Name
             };
 
             /*

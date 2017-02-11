@@ -8,8 +8,8 @@ using EmployeeManager.Web.Domain;
 namespace EmployeeManager.Web.Migrations
 {
     [DbContext(typeof(EmployeeDataContext))]
-    [Migration("20170211140519_initial")]
-    partial class Initial
+    [Migration("20170211165616_MakeTemporal")]
+    partial class MakeTemporal
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -33,6 +33,10 @@ namespace EmployeeManager.Web.Migrations
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasMaxLength(25);
+
+                    b.Property<string>("WhoDidThis")
+                        .IsRequired()
+                        .HasMaxLength(50);
 
                     b.HasKey("Id");
 
