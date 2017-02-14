@@ -117,7 +117,7 @@ namespace EmployeeManager.Web.Controllers
             var twoMinutesAgo = DateTime.Now.AddMinutes(-2);
             string SQL = $"SELECT * FROM Employees FOR SYSTEM_TIME AS OF '{twoMinutesAgo}'";
 
-            var model = await _dbContext.Employees.FromSql(SQL)
+            var model = await _dbContext.Employees.FromSql(SQL).OrderBy(e => e.Id)
                 .AsNoTracking().Select(e => new EmployeeIndexModel
             {
                 EmployeeId = e.Id,
@@ -133,7 +133,7 @@ namespace EmployeeManager.Web.Controllers
             var thirtyDaysAgo = DateTime.Now.AddDays(-30);
             string SQL = $"SELECT * FROM Employees FOR SYSTEM_TIME AS OF '{thirtyDaysAgo}'";
 
-            var model = await _dbContext.Employees.FromSql(SQL).AsNoTracking()
+            var model = await _dbContext.Employees.FromSql(SQL).AsNoTracking().OrderBy(e=>e.Id)
                 .Select(e => new EmployeeIndexModel
             {
                 EmployeeId = e.Id,
@@ -149,7 +149,7 @@ namespace EmployeeManager.Web.Controllers
             var fortyDaysAgo = DateTime.Now.AddDays(-40);
             string SQL = $"SELECT * FROM Employees FOR SYSTEM_TIME AS OF '{fortyDaysAgo}'";
 
-            var model = await _dbContext.Employees.FromSql(SQL).AsNoTracking()
+            var model = await _dbContext.Employees.FromSql(SQL).AsNoTracking().OrderBy(e => e.Id)
                 .Select(e => new EmployeeIndexModel
             {
                 EmployeeId = e.Id,
